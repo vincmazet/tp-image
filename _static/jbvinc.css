@@ -1,0 +1,81 @@
+/* Feuille de style perso VM */
+
+
+/* Style général */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=auto');
+
+body {
+  font-family: "Source Sans Pro";
+  font-size: 1.1rem;
+}
+
+.bd-article-container h1,
+.bd-article-container h2,
+.bd-article-container h3,
+.bd-article-container h4,
+.bd-article-container h5,
+.bd-article-container h6 {
+  font-family: "Source Sans Pro";
+  font-weight: 600;
+  color: var(--pst-color-text-base);
+}
+
+h1 {font-size: 2.5em;}
+h2 {font-size: 1.7em;}
+h3 {
+  font-size: 1.0em;
+  margin: 1.2rem 0 .5rem 0;
+}
+
+span.pre {
+  /* background-color: #eee; */
+  /* padding: 1px 5px; */
+  /* border: 0; */
+  color: var(--pst-color-text-base);
+  /* font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace; */
+  /* font-size: inherit; */
+  /* line-height: 1.3077 */
+}
+
+/* Légendes */
+
+figure span.caption-number, figure span.caption-text {
+  font-family: "Source Sans Pro";
+  font-size: 1.1rem;
+}
+
+figure span.caption-number {
+  margin-right: .5em;
+}
+
+/* Hack pour faire disparaître le bouton "launch" */
+
+/* .menu-dropdown.menu-dropdown-launch-buttons {
+    display: none;
+} */
+
+/* Hack pour faire disparaître le footer (et mettre le mien à la place) */
+
+.component-author, .copyright {
+    display: none;
+}
+
+/* Tableaux */
+
+table p { margin-bottom: 0 }
+
+/* Liens */
+
+a {text-decoration: none;}
+
+.correction {
+  margin-top: 2.5rem;
+  text-align:center;
+  font-size:2rem;
+}
+
+.correction::before {
+    content: "\2014\00A0\00A0\2766\00A0\00A0\2014";
+    /*content: "&mdash;&nbsp;&nbsp;&#10086;&nbsp;&nbsp;&mdash";*/
+}
