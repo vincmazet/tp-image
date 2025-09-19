@@ -79,3 +79,12 @@ a {text-decoration: none;}
     content: "\2014\00A0\00A0\2766\00A0\00A0\2014";
     /*content: "&mdash;&nbsp;&nbsp;&#10086;&nbsp;&nbsp;&mdash";*/
 }
+
+/* Couleur des marques (jaune par appui sur la touche M */
+mark {
+    padding: .1em;
+    background-color: var(--pst-color-background);
+}
+mark.active {
+    background-color: var(--bs-highlight-bg);
+}

@@ -1,0 +1,894 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Afficher une image &#8212; Traitement d&#39;images</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jbvinc.css" />
+    <link rel="stylesheet" type="text/css" href="_static/.ipynb_checkpoints/jbvinc-checkpoint.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp11c';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Traitement d'images</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Images numériques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tp11.html">Afficher une image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp12.html">Analyser un histogramme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definition.html">What is a digital image?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://vincmazet.github.io/bip/">Manuel de cours</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Installing and using Python</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://moodle.unistra.fr/course/view.php?id=xxxx">Moodle</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tp11c.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Afficher une image</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-d-un-notebook">Création d’un notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-d-une-image-en-couleur">Affichage d’une image en couleur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-d-une-image-a-niveaux-de-gris">Affichage d’une image à niveaux de gris</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="afficher-une-image">
+<h1>Afficher une image<a class="headerlink" href="#afficher-une-image" title="Permalink to this heading">#</a></h1>
+<section id="creation-d-un-notebook">
+<h2>Création d’un notebook<a class="headerlink" href="#creation-d-un-notebook" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">skimage.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">skimage.color</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">clr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="affichage-d-une-image-en-couleur">
+<h2>Affichage d’une image en couleur<a class="headerlink" href="#affichage-d-une-image-en-couleur" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;_static/schtroumpf.jpg&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a3cd91b82b5f4e85698f6c5d6854596bdc8b28a981de21d8cece7694ac3b2bd3.png" src="_images/a3cd91b82b5f4e85698f6c5d6854596bdc8b28a981de21d8cece7694ac3b2bd3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dimensions de l&#39;image</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(300, 300, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Type de données</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uint8
+</pre></div>
+</div>
+</div>
+</div>
+<p>Les valeurs du pixel sont de type <code class="docutils literal notranslate"><span class="pre">uint8</span></code> : ce sont des entiers non signés codés sur 8 bits (donc 1 octet). Cela permet de coder des valeurs entières entre 0 et 255. Comme il y a trois bandes (rouge, vert, bleu), le pixel est codé sur 3 octets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">150</span><span class="p">,</span><span class="mi">150</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  0 189 241]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">g</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7e0e97e8c410&gt;
+</pre></div>
+</div>
+<img alt="_images/418209283ba8b03e762840999f5cc9d94840795a84bf2967669fc3c66354210d.png" src="_images/418209283ba8b03e762840999f5cc9d94840795a84bf2967669fc3c66354210d.png" />
+</div>
+</div>
+</section>
+<section id="affichage-d-une-image-a-niveaux-de-gris">
+<h2>Affichage d’une image à niveaux de gris<a class="headerlink" href="#affichage-d-une-image-a-niveaux-de-gris" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">rgb2gray</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image à niveau de gris</span><span class="se">\n</span><span class="s1">colormap par défaut (viridis)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c32275021f21e175141b1f90af6c45c971a558edc3c1a03bc1cfe66bea048e13.png" src="_images/c32275021f21e175141b1f90af6c45c971a558edc3c1a03bc1cfe66bea048e13.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+1.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>L’image ne semble pas être en niveaux de gris parce que la palette de couleurs utilisée
+n’est pas un camaïeu de gris mais un camaïeu de teintes jaunes, vertes et bleues.
+Cette palette est appelée <em>viridis</em>.</p>
+<p>De plus, la conversion en niveau de gris produit une image dont les intensités des pixels sont entre 0 et 1.
+Le nombre de niveau de gris pouvant être supérieur 256 à cause de la conversion
+(<span class="math notranslate nohighlight">\(x = 0.2125 \, r + 0.7154 \, g + 0.0721 \, b\)</span>),
+l’image est maintenant codée en double précision sur 64 bits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([246, 255, 250], dtype=uint8)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function imshow in module matplotlib.pyplot:
+
+imshow(
+    X: &#39;ArrayLike | PIL.Image.Image&#39;,
+    cmap: &#39;str | Colormap | None&#39; = None,
+    norm: &#39;str | Normalize | None&#39; = None,
+    *,
+    aspect: &quot;Literal[&#39;equal&#39;, &#39;auto&#39;] | float | None&quot; = None,
+    interpolation: &#39;str | None&#39; = None,
+    alpha: &#39;float | ArrayLike | None&#39; = None,
+    vmin: &#39;float | None&#39; = None,
+    vmax: &#39;float | None&#39; = None,
+    colorizer: &#39;Colorizer | None&#39; = None,
+    origin: &quot;Literal[&#39;upper&#39;, &#39;lower&#39;] | None&quot; = None,
+    extent: &#39;tuple[float, float, float, float] | None&#39; = None,
+    interpolation_stage: &quot;Literal[&#39;data&#39;, &#39;rgba&#39;, &#39;auto&#39;] | None&quot; = None,
+    filternorm: &#39;bool&#39; = True,
+    filterrad: &#39;float&#39; = 4.0,
+    resample: &#39;bool | None&#39; = None,
+    url: &#39;str | None&#39; = None,
+    data=None,
+    **kwargs
+) -&gt; &#39;AxesImage&#39;
+    Display data as an image, i.e., on a 2D regular raster.
+
+    The input may either be actual RGB(A) data, or 2D scalar data, which
+    will be rendered as a pseudocolor image. For displaying a grayscale
+    image, set up the colormapping using the parameters
+    ``cmap=&#39;gray&#39;, vmin=0, vmax=255``.
+
+    The number of pixels used to render an image is set by the Axes size
+    and the figure *dpi*. This can lead to aliasing artifacts when
+    the image is resampled, because the displayed image size will usually
+    not match the size of *X* (see
+    :doc:`/gallery/images_contours_and_fields/image_antialiasing`).
+    The resampling can be controlled via the *interpolation* parameter
+    and/or :rc:`image.interpolation`.
+
+    Parameters
+    ----------
+    X : array-like or PIL image
+        The image data. Supported array shapes are:
+
+        - (M, N): an image with scalar data. The values are mapped to
+          colors using normalization and a colormap. See parameters *norm*,
+          *cmap*, *vmin*, *vmax*.
+        - (M, N, 3): an image with RGB values (0-1 float or 0-255 int).
+        - (M, N, 4): an image with RGBA values (0-1 float or 0-255 int),
+          i.e. including transparency.
+
+        The first two dimensions (M, N) define the rows and columns of
+        the image.
+
+        Out-of-range RGB(A) values are clipped.
+
+    cmap : str or `~matplotlib.colors.Colormap`, default: :rc:`image.cmap`
+        The Colormap instance or registered colormap name used to map scalar data
+        to colors.
+
+        This parameter is ignored if *X* is RGB(A).
+
+    norm : str or `~matplotlib.colors.Normalize`, optional
+        The normalization method used to scale scalar data to the [0, 1] range
+        before mapping to colors using *cmap*. By default, a linear scaling is
+        used, mapping the lowest value to 0 and the highest to 1.
+
+        If given, this can be one of the following:
+
+        - An instance of `.Normalize` or one of its subclasses
+          (see :ref:`colormapnorms`).
+        - A scale name, i.e. one of &quot;linear&quot;, &quot;log&quot;, &quot;symlog&quot;, &quot;logit&quot;, etc.  For a
+          list of available scales, call `matplotlib.scale.get_scale_names()`.
+          In that case, a suitable `.Normalize` subclass is dynamically generated
+          and instantiated.
+
+        This parameter is ignored if *X* is RGB(A).
+
+    vmin, vmax : float, optional
+        When using scalar data and no explicit *norm*, *vmin* and *vmax* define
+        the data range that the colormap covers. By default, the colormap covers
+        the complete value range of the supplied data. It is an error to use
+        *vmin*/*vmax* when a *norm* instance is given (but using a `str` *norm*
+        name together with *vmin*/*vmax* is acceptable).
+
+        This parameter is ignored if *X* is RGB(A).
+
+    colorizer : `~matplotlib.colorizer.Colorizer` or None, default: None
+        The Colorizer object used to map color to data. If None, a Colorizer
+        object is created from a *norm* and *cmap*.
+
+        This parameter is ignored if *X* is RGB(A).
+
+    aspect : {&#39;equal&#39;, &#39;auto&#39;} or float or None, default: None
+        The aspect ratio of the Axes.  This parameter is particularly
+        relevant for images since it determines whether data pixels are
+        square.
+
+        This parameter is a shortcut for explicitly calling
+        `.Axes.set_aspect`. See there for further details.
+
+        - &#39;equal&#39;: Ensures an aspect ratio of 1. Pixels will be square
+          (unless pixel sizes are explicitly made non-square in data
+          coordinates using *extent*).
+        - &#39;auto&#39;: The Axes is kept fixed and the aspect is adjusted so
+          that the data fit in the Axes. In general, this will result in
+          non-square pixels.
+
+        Normally, None (the default) means to use :rc:`image.aspect`.  However, if
+        the image uses a transform that does not contain the axes data transform,
+        then None means to not modify the axes aspect at all (in that case, directly
+        call `.Axes.set_aspect` if desired).
+
+    interpolation : str, default: :rc:`image.interpolation`
+        The interpolation method used.
+
+        Supported values are &#39;none&#39;, &#39;auto&#39;, &#39;nearest&#39;, &#39;bilinear&#39;,
+        &#39;bicubic&#39;, &#39;spline16&#39;, &#39;spline36&#39;, &#39;hanning&#39;, &#39;hamming&#39;, &#39;hermite&#39;,
+        &#39;kaiser&#39;, &#39;quadric&#39;, &#39;catrom&#39;, &#39;gaussian&#39;, &#39;bessel&#39;, &#39;mitchell&#39;,
+        &#39;sinc&#39;, &#39;lanczos&#39;, &#39;blackman&#39;.
+
+        The data *X* is resampled to the pixel size of the image on the
+        figure canvas, using the interpolation method to either up- or
+        downsample the data.
+
+        If *interpolation* is &#39;none&#39;, then for the ps, pdf, and svg
+        backends no down- or upsampling occurs, and the image data is
+        passed to the backend as a native image.  Note that different ps,
+        pdf, and svg viewers may display these raw pixels differently. On
+        other backends, &#39;none&#39; is the same as &#39;nearest&#39;.
+
+        If *interpolation* is the default &#39;auto&#39;, then &#39;nearest&#39;
+        interpolation is used if the image is upsampled by more than a
+        factor of three (i.e. the number of display pixels is at least
+        three times the size of the data array).  If the upsampling rate is
+        smaller than 3, or the image is downsampled, then &#39;hanning&#39;
+        interpolation is used to act as an anti-aliasing filter, unless the
+        image happens to be upsampled by exactly a factor of two or one.
+
+        See
+        :doc:`/gallery/images_contours_and_fields/interpolation_methods`
+        for an overview of the supported interpolation methods, and
+        :doc:`/gallery/images_contours_and_fields/image_antialiasing` for
+        a discussion of image antialiasing.
+
+        Some interpolation methods require an additional radius parameter,
+        which can be set by *filterrad*. Additionally, the antigrain image
+        resize filter is controlled by the parameter *filternorm*.
+
+    interpolation_stage : {&#39;auto&#39;, &#39;data&#39;, &#39;rgba&#39;}, default: &#39;auto&#39;
+        Supported values:
+
+        - &#39;data&#39;: Interpolation is carried out on the data provided by the user
+          This is useful if interpolating between pixels during upsampling.
+        - &#39;rgba&#39;: The interpolation is carried out in RGBA-space after the
+          color-mapping has been applied. This is useful if downsampling and
+          combining pixels visually.
+        - &#39;auto&#39;: Select a suitable interpolation stage automatically. This uses
+          &#39;rgba&#39; when downsampling, or upsampling at a rate less than 3, and
+          &#39;data&#39; when upsampling at a higher rate.
+
+        See :doc:`/gallery/images_contours_and_fields/image_antialiasing` for
+        a discussion of image antialiasing.
+
+    alpha : float or array-like, optional
+        The alpha blending value, between 0 (transparent) and 1 (opaque).
+        If *alpha* is an array, the alpha blending values are applied pixel
+        by pixel, and *alpha* must have the same shape as *X*.
+
+    origin : {&#39;upper&#39;, &#39;lower&#39;}, default: :rc:`image.origin`
+        Place the [0, 0] index of the array in the upper left or lower
+        left corner of the Axes. The convention (the default) &#39;upper&#39; is
+        typically used for matrices and images.
+
+        Note that the vertical axis points upward for &#39;lower&#39;
+        but downward for &#39;upper&#39;.
+
+        See the :ref:`imshow_extent` tutorial for
+        examples and a more detailed description.
+
+    extent : floats (left, right, bottom, top), optional
+        The bounding box in data coordinates that the image will fill.
+        These values may be unitful and match the units of the Axes.
+        The image is stretched individually along x and y to fill the box.
+
+        The default extent is determined by the following conditions.
+        Pixels have unit size in data coordinates. Their centers are on
+        integer coordinates, and their center coordinates range from 0 to
+        columns-1 horizontally and from 0 to rows-1 vertically.
+
+        Note that the direction of the vertical axis and thus the default
+        values for top and bottom depend on *origin*:
+
+        - For ``origin == &#39;upper&#39;`` the default is
+          ``(-0.5, numcols-0.5, numrows-0.5, -0.5)``.
+        - For ``origin == &#39;lower&#39;`` the default is
+          ``(-0.5, numcols-0.5, -0.5, numrows-0.5)``.
+
+        See the :ref:`imshow_extent` tutorial for
+        examples and a more detailed description.
+
+    filternorm : bool, default: True
+        A parameter for the antigrain image resize filter (see the
+        antigrain documentation).  If *filternorm* is set, the filter
+        normalizes integer values and corrects the rounding errors. It
+        doesn&#39;t do anything with the source floating point values, it
+        corrects only integers according to the rule of 1.0 which means
+        that any sum of pixel weights must be equal to 1.0.  So, the
+        filter function must produce a graph of the proper shape.
+
+    filterrad : float &gt; 0, default: 4.0
+        The filter radius for filters that have a radius parameter, i.e.
+        when interpolation is one of: &#39;sinc&#39;, &#39;lanczos&#39; or &#39;blackman&#39;.
+
+    resample : bool, default: :rc:`image.resample`
+        When *True*, use a full resampling method.  When *False*, only
+        resample when the output image is larger than the input image.
+
+    url : str, optional
+        Set the url of the created `.AxesImage`. See `.Artist.set_url`.
+
+    Returns
+    -------
+    `~matplotlib.image.AxesImage`
+
+    Other Parameters
+    ----------------
+    data : indexable object, optional
+        If given, all parameters also accept a string ``s``, which is
+        interpreted as ``data[s]`` if ``s`` is a key in ``data``.
+
+    **kwargs : `~matplotlib.artist.Artist` properties
+        These parameters are passed on to the constructor of the
+        `.AxesImage` artist.
+
+    See Also
+    --------
+    matshow : Plot a matrix or an array as an image.
+
+    Notes
+    -----
+
+    .. note::
+
+        This is the :ref:`pyplot wrapper &lt;pyplot_interface&gt;` for `.axes.Axes.imshow`.
+
+    Unless *extent* is used, pixel centers will be located at integer
+    coordinates. In other words: the origin will coincide with the center
+    of pixel (0, 0).
+
+    There are two common representations for RGB images with an alpha
+    channel:
+
+    -   Straight (unassociated) alpha: R, G, and B channels represent the
+        color of the pixel, disregarding its opacity.
+    -   Premultiplied (associated) alpha: R, G, and B channels represent
+        the color of the pixel, adjusted for its opacity by multiplication.
+
+    `~matplotlib.pyplot.imshow` expects RGB images adopting the straight
+    (unassociated) alpha representation.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image à niveau de gris</span><span class="se">\n</span><span class="s1">colormap gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5b39cc950b286277d42eacde8e582bf136baec5172fc0f43183bfe1ddff30cef.png" src="_images/5b39cc950b286277d42eacde8e582bf136baec5172fc0f43183bfe1ddff30cef.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">[:,</span><span class="mi">260</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7e0e97e56710&gt;]
+</pre></div>
+</div>
+<img alt="_images/702b3d215919af5c988d7f38b3e0b00051ebd0e8762da4369c6a7970d4f694ef.png" src="_images/702b3d215919af5c988d7f38b3e0b00051ebd0e8762da4369c6a7970d4f694ef.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-d-un-notebook">Création d’un notebook</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-d-une-image-en-couleur">Affichage d’une image en couleur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-d-une-image-a-niveaux-de-gris">Affichage d’une image à niveaux de gris</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vincent Mazet (Université de Strasbourg, France)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025-2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Traitement d'images &mdash; Vincent Mazet (Université de Strasbourg), 2025-2026 &mdash; <a href='https://vincmazet.github.io/bip/appendices/license.html'>CC BY-NC 4.0</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
