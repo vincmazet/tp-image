@@ -187,7 +187,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference external" href="https://vincmazet.github.io/bip/">Manuel de cours</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Utilisation de Python</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://moodle.unistra.fr/course/view.php?id=xxxx">Moodle</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://moodle.unistra.fr/course/view.php?id=18192">Moodle</a></li>
 </ul>
 
     </div>
@@ -391,11 +391,15 @@ ou <strong>Run All</strong> (VSCode).</p>
 <p>Par défaut, les cellules sont sensées contenir du code.
 Elles sont divisées en une entrée (les instructions Python) et une sortie (le résultat).</p>
 <p>Par exemple, l’entrée suivante :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">21</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">21</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La valeur est &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>Renvoie cette sortie :</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>La valeur est 63
@@ -502,6 +506,13 @@ Il existe cependant des différences majeures, listées ci-après.</p>
 Contrairement à Matlab, il ne contient que très peu de fonctions scientifiques de base.
 Il faut donc le compléter avec des modules comme Matplotlib ou Numpy.
 Par exemple, Numpy est chargé avec :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>Les fonctions dans Numpy sont ensuite accessibles avec <code class="docutils literal notranslate"><span class="pre">np.nom_de_la_fonction</span></code>.</p>
 </section>
 <section id="vecteurs-et-matrices">
