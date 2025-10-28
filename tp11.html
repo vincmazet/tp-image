@@ -184,6 +184,11 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Afficher une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp12.html">Analyser un histogramme</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Convolution &amp; filtrage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tp21.html">Produit de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp22.html">Analyse de Fourier</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference external" href="https://vincmazet.github.io/bip/">Manuel de cours</a></li>
@@ -367,7 +372,7 @@ Il est composé de plusieurs cellules, chacune étant soit du code, soit du text
 Une image est une fonction $f$ de $\mathbb{N}^d$ dans $\mathbb{R}^B$.
 </pre></div>
 </div>
-<p>puis tapez <code class="docutils literal notranslate"><span class="pre">Shift</span></code> + <code class="docutils literal notranslate"><span class="pre">Return</span></code> :
+<p>puis tapez <code class="docutils literal notranslate"><span class="pre">Shift</span></code> + <code class="docutils literal notranslate"><span class="pre">Entrée</span></code> :
 le code est exécuté, le résultat s’affiche et une nouvelle cellule apparaît.</p>
 </li>
 <li><p>Dans la cellule nouvellement créée (que vous laissez au format <em>Code</em>), tapez :</p>
@@ -375,7 +380,7 @@ le code est exécuté, le résultat s’affiche et une nouvelle cellule apparaî
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </pre></div>
 </div>
-<p>puis <code class="docutils literal notranslate"><span class="pre">Shift</span></code> + <code class="docutils literal notranslate"><span class="pre">Return</span></code> pour importer le module scikit-image que nous utiliserons à chaque TP.</p>
+<p>puis <code class="docutils literal notranslate"><span class="pre">Shift</span></code> + <code class="docutils literal notranslate"><span class="pre">Entrée</span></code> pour importer le module scikit-image que nous utiliserons à chaque TP.</p>
 </li>
 <li><p>Dans les prochains TP, prenez l’habitude de cliquez de temps en temps sur
 <svg width="20" height="20" viewBox="0 2 24 24">
@@ -389,8 +394,9 @@ cela vous évitera de traîner des bugs.</p></li>
 <section id="affichage-d-une-image-en-couleur">
 <h2>Affichage d’une image en couleur<a class="headerlink" href="#affichage-d-une-image-en-couleur" title="Permalink to this heading">#</a></h2>
 <ul>
-<li><p>Chargez l’image <a class="reference download internal" download="" href="_downloads/9da2b4e61e885f7bdabc29f3c6616548/schtroumpf.jpg"><span class="xref download myst">schtroumpf.jpg</span></a>
-et enregistrez-la <em>dans le même dossier que votre notebook</em>.</p></li>
+<li><p>Chargez l’image <a class="reference download internal" download="" href="_downloads/9da2b4e61e885f7bdabc29f3c6616548/schtroumpf.jpg"><span class="xref download myst">schtroumpf.jpg</span></a>.</p>
+<!-- et enregistrez-la _dans le même dossier que votre notebook_. [PAS NÉCESSAIRE FINALEMENT] -->
+</li>
 <li><p>Dans une troisième cellule du notebook, chargez l’image :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;schtroumpf.jpg&quot;</span><span class="p">)</span>
 </pre></div>

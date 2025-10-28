@@ -64,7 +64,7 @@
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Utilisation de Python" href="python.html" />
+    <link rel="next" title="Produit de convolution" href="tp21.html" />
     <link rel="prev" title="Afficher une image" href="tp11.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,6 +181,11 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tp11.html">Afficher une image</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyser un histogramme</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Convolution &amp; filtrage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tp21.html">Produit de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp22.html">Analyse de Fourier</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
 <ul class="nav bd-sidenav">
@@ -353,7 +358,7 @@ document.write(`
 <p>Dans cet exercice, plusieurs images et des transformations sur celles-ci seront observées et leur histogramme sera analysé.
 Pour ce faire, l’utilisation d’une fonction permettant de gérer l’affichage de l’image et de son histogramme va faciliter la réalisation.
 Commencez donc par créer la fonction suivante :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">affichage</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">affichage</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Affichage de l&#39;image et de son histogramme&quot;&quot;&quot;</span>    
 
     <span class="c1"># Création de la figure avec deux graphes</span>
@@ -443,11 +448,11 @@ Combien de galaxies sont visibles ?</p></li>
       </div>
     </a>
     <a class="right-next"
-       href="python.html"
+       href="tp21.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Utilisation de Python</p>
+        <p class="prev-next-title">Produit de convolution</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
