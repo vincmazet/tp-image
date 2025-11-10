@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Traitement d&#39;images</title>
+    <title>Produit de convolution &#8212; Traitement d&#39;images</title>
   
   
   
@@ -58,13 +58,16 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp3';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/_static/displaymarks.js"></script>
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Affichage d’une image" href="tp1.html" />
+    <link rel="next" title="Analyse de Fourier" href="tp4.html" />
+    <link rel="prev" title="Analyse d’un histogramme" href="tp2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -127,8 +130,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -147,7 +148,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -172,17 +173,17 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Travaux pratiques</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tp1.html">Affichage d’une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp2.html">Analyse d’un histogramme</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp3.html">Produit de convolution</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Produit de convolution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp4.html">Analyse de Fourier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp5.html">Segmentation d’image</a></li>
 </ul>
@@ -245,7 +246,7 @@
       
       
       
-      <li><a href="_sources/index.ipynb" target="_blank"
+      <li><a href="_sources/tp3.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -327,7 +328,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Produit de convolution</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -341,16 +342,34 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>Ce manuel regroupe les TP de Traitement d’images du département I2S de <a class="reference external" href="https://www.telecom-physique.fr/">Télécom Physique Strasbourg</a>.
-Le manuel de cours est accessible sur <a class="reference external" href="https://vincmazet.github.io/bip/">Basics of Image Processing</a>.</p>
-<p>Les TP sont des exercices de programmation en Python (une aide est disponible dans la page <a class="reference internal" href="python.html#p-python"><span class="std std-ref">Utilisation de Python</span></a>).
-Des ressources complémentaires sont disponibles sur la page Moodle dédiée (accès réservé à mes étudiants).</p>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="produit-de-convolution">
+<span id="p-tp3"></span><h1>Produit de convolution<a class="headerlink" href="#produit-de-convolution" title="Permalink to this heading">#</a></h1>
+<p>Dans cet exercice, le produit de convolution est utilisé sur des images très petites, afin de pouvoir vérifier les résultats par le calcul.
+On considère l’image 2 × 6 :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+g =
+\begin{pmatrix}
+  1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0
+\end{pmatrix}
+\end{split}\]</div>
+<p>et les trois PSF ci-dessous :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+h_1 = \begin{pmatrix} 1 &amp; -1 \end{pmatrix}, \qquad
+h_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}, \qquad
+h_3 = \begin{pmatrix} 1 &amp; 2 &amp; 1 \end{pmatrix}.
+\end{split}\]</div>
+<ul>
+<li><p>Calculez le résultat des convolutions de l’image <span class="math notranslate nohighlight">\(g\)</span> avec chacune des trois PSF.</p></li>
+<li><p>Vérifiez le résultat avec Python.
+L’image <span class="math notranslate nohighlight">\(g\)</span> peut être définie avec l’instruction :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ligne</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ligne</span><span class="p">,</span> <span class="n">ligne</span><span class="p">])</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-</div>
+</li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -383,12 +402,21 @@ Des ressources complémentaires sont disponibles sur la page Moodle dédiée (ac
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tp2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analyse d’un histogramme</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="tp1.html"
+       href="tp4.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Affichage d’une image</p>
+        <p class="prev-next-title">Analyse de Fourier</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

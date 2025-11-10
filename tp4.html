@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Traitement d&#39;images</title>
+    <title>Analyse de Fourier &#8212; Traitement d&#39;images</title>
   
   
   
@@ -58,13 +58,16 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp4';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/_static/displaymarks.js"></script>
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Affichage d’une image" href="tp1.html" />
+    <link rel="next" title="Segmentation d’image" href="tp5.html" />
+    <link rel="prev" title="Produit de convolution" href="tp3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -127,8 +130,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -147,7 +148,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -172,18 +173,18 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Travaux pratiques</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tp1.html">Affichage d’une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp2.html">Analyse d’un histogramme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp3.html">Produit de convolution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp4.html">Analyse de Fourier</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyse de Fourier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp5.html">Segmentation d’image</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
@@ -245,7 +246,7 @@
       
       
       
-      <li><a href="_sources/index.ipynb" target="_blank"
+      <li><a href="_sources/tp4.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -327,7 +328,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Analyse de Fourier</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -341,16 +342,36 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>Ce manuel regroupe les TP de Traitement d’images du département I2S de <a class="reference external" href="https://www.telecom-physique.fr/">Télécom Physique Strasbourg</a>.
-Le manuel de cours est accessible sur <a class="reference external" href="https://vincmazet.github.io/bip/">Basics of Image Processing</a>.</p>
-<p>Les TP sont des exercices de programmation en Python (une aide est disponible dans la page <a class="reference internal" href="python.html#p-python"><span class="std std-ref">Utilisation de Python</span></a>).
-Des ressources complémentaires sont disponibles sur la page Moodle dédiée (accès réservé à mes étudiants).</p>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="analyse-de-fourier">
+<span id="p-tp4"></span><h1>Analyse de Fourier<a class="headerlink" href="#analyse-de-fourier" title="Permalink to this heading">#</a></h1>
+<p>Cet exercice a pour but de manipuler des images dans le domaine de Fourier.
+Pour cela, un filtre passe-bas et un filtre passe-haut seront appliqués sur une image à niveau de gris.</p>
+<ul>
+<li><p>Chargez et affichez l’image <a class="reference download internal" download="" href="_downloads/e9fdd2d0ebe2547b4885e50fb6a11805/smiley.png"><span class="xref download myst">smiley.png</span></a>.</p></li>
+<li><p>Calculez et affichez la transformée de Fourier de l’image avec <code class="docutils literal notranslate"><span class="pre">numpy.fft.fft2</span></code>.
+Affichez la transformée de Fourier en ramenant, par convention, les basses fréquences au centre de l’image avec <code class="docutils literal notranslate"><span class="pre">numpy.fft.fftshift</span></code>.
+Le module et la phase de la transformée de Fourier s’obtiennent avec <code class="docutils literal notranslate"><span class="pre">numpy.absolute</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.angle</span></code>.
+Pour mieux observer le module, vous pouvez le représenter en échelle logarithmique (<code class="docutils literal notranslate"><span class="pre">numpy.log</span></code>).</p></li>
+<li><p>Créez un filtre passe-bas idéal en définissant sa PSF <span class="math notranslate nohighlight">\(h\)</span> directement dans le domaine de Fourier.</p>
+<ul>
+<li><p>Quelle taille doit avoir la transformée de Fourier de <span class="math notranslate nohighlight">\(h\)</span> ?</p></li>
+<li><p>Créez la transformée de Fourier de sorte à ce qu’elle soit égale à 1 dans les basses fréquences et 0 ailleurs. Vous pouvez vous inspirer du code suivant :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">H</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-</div>
+<p>où <code class="docutils literal notranslate"><span class="pre">M</span></code>, <code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code> et <code class="docutils literal notranslate"><span class="pre">b</span></code> sont des paramètres à régler.</p>
+</li>
+<li><p>Affichez le module et la phase du filtre passe-bas ainsi créé.</p></li>
+<li><p>Effectuez le filtrage dans le domaine de Fourier.</p></li>
+<li><p>Que constatez-vous sur l’image filtrée ?</p></li>
+</ul>
+</li>
+<li><p>Même question avec un filtre passe-haut.</p></li>
+<li><p>Appliquez les filtres utilisés dans l’exercice précédent sur l’image.
+Comme les PSF de ces filtrers sont définies dans le domaine spatial,
+alors il est plus direct de calculer des convolutions dans le domaine spatial plutôt que des multiplications dans le domaine de Fourier.</p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -383,12 +404,21 @@ Des ressources complémentaires sont disponibles sur la page Moodle dédiée (ac
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tp3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Produit de convolution</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="tp1.html"
+       href="tp5.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Affichage d’une image</p>
+        <p class="prev-next-title">Segmentation d’image</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

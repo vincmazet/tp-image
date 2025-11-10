@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Traitement d&#39;images</title>
+    <title>Segmentation d’image &#8212; Traitement d&#39;images</title>
   
   
   
@@ -58,13 +58,14 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp5';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/_static/displaymarks.js"></script>
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Affichage d’une image" href="tp1.html" />
+    <link rel="next" title="Utilisation de Python" href="python.html" />
+    <link rel="prev" title="Analyse de Fourier" href="tp4.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -127,8 +128,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -147,7 +146,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -172,19 +171,19 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Travaux pratiques</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tp1.html">Affichage d’une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp2.html">Analyse d’un histogramme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp3.html">Produit de convolution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp4.html">Analyse de Fourier</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp5.html">Segmentation d’image</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Segmentation d’image</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
 <ul class="nav bd-sidenav">
@@ -245,7 +244,7 @@
       
       
       
-      <li><a href="_sources/index.ipynb" target="_blank"
+      <li><a href="_sources/tp5.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -327,7 +326,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Segmentation d’image</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -341,16 +340,37 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>Ce manuel regroupe les TP de Traitement d’images du département I2S de <a class="reference external" href="https://www.telecom-physique.fr/">Télécom Physique Strasbourg</a>.
-Le manuel de cours est accessible sur <a class="reference external" href="https://vincmazet.github.io/bip/">Basics of Image Processing</a>.</p>
-<p>Les TP sont des exercices de programmation en Python (une aide est disponible dans la page <a class="reference internal" href="python.html#p-python"><span class="std std-ref">Utilisation de Python</span></a>).
-Des ressources complémentaires sont disponibles sur la page Moodle dédiée (accès réservé à mes étudiants).</p>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="segmentation-d-image">
+<span id="p-tp5"></span><h1>Segmentation d’image<a class="headerlink" href="#segmentation-d-image" title="Permalink to this heading">#</a></h1>
+<p>L’image <a class="reference download internal" download="" href="_downloads/30710de89c3d2844004abb3faedd69ce/parking.png"><span class="xref download myst">parking.png</span></a> est une observation aérienne d’un parking d’usine.
+L’objectif est de segmenter l’image en deux classes pour distinguer les véhicules du reste de l’image.</p>
+<p><strong>Segmentation manuelle</strong></p>
+<ul class="simple">
+<li><p>Affichez l’<a class="reference internal" href="tp2.html#p-tp2"><span class="std std-ref">histogramme</span></a> de l’image et déterminer une valeur de seuil qui permette de faire la distinction.</p></li>
+<li><p>Appliquez le seuil choisi sur l’image avec l’instruction <code class="docutils literal notranslate"><span class="pre">seg</span> <span class="pre">=</span> <span class="pre">(img</span> <span class="pre">&gt;</span> <span class="pre">seuil)</span> <span class="pre">*</span> <span class="pre">1</span></code> où <code class="docutils literal notranslate"><span class="pre">seg</span></code> est l’image segmentée, <code class="docutils literal notranslate"><span class="pre">img</span></code> est l’image à niveau de gris et <code class="docutils literal notranslate"><span class="pre">seuil</span></code> est le seuil.
+La multiplication par 1 permet d’obtenir un résultat numérique et non booléen, facilitant les traitements qui seront faits par la suite.
+Le résultat correspond-il à vos attentes ?</p></li>
+<li><p>Calculez l’exactitude (<em>accuracy</em>, <code class="docutils literal notranslate"><span class="pre">sklearn.metrics.accuracy_score</span></code>) en utilisant la <a class="reference download internal" download="" href="_downloads/72a60b2eaa1b1494ba6d574b9e9dc48a/parking-vt.png"><span class="xref download myst">vérité terrain</span></a>.
+Pour rappel, une image peut être vectorisée avec l’instruction <code class="docutils literal notranslate"><span class="pre">.ravel()</span></code>.
+Prenez garde également à comparer des vecteurs de même amplitude : il peut être utile de diviser l’intensité des images par leur valeurs maximale (<code class="docutils literal notranslate"><span class="pre">.max()</span></code>).
+Que constatez-vous ?</p></li>
+</ul>
+<p><strong>Segmentation avec la méthode de Otsu</strong></p>
+<p>La méthode de Otsu permet de déterminer une valeur de seuil de façon automatique, à partir de l’histtogramme de l’image.</p>
+<ul class="simple">
+<li><p>Effectuez la segmentation de l’image avec le seuil de Otsu (<code class="docutils literal notranslate"><span class="pre">skimage.filters.threshold_otsu</span></code>).
+Le résultat correspond-il à vos attentes ?
+Qu’en est-il de l’exactitude ?</p></li>
+</ul>
+<p><strong>Dénombrement automatique des véhicules</strong></p>
+<p>Pour terminer, on cherche enfin à dénombrer automatiquement le nombre de véhicules.
+La « labellisation » de l’image consiste à numéroter chaque objet d’une segmentation binaire.</p>
+<ul class="simple">
+<li><p>Labellisez la meilleure segmentation obtenue (<code class="docutils literal notranslate"><span class="pre">skimage.measure.label</span></code>) et déterminez le nombre d’objets en récupérant la valeur la plus grande de la labellisation (<code class="docutils literal notranslate"><span class="pre">.max()</span></code>).</p></li>
+<li><p>Vous pouvez améliorer la segmentation binaire en réduisant la taille de chaque objet.
+De ce fait, les petits objets, qui ne correspondent pas à de vrais véhicules, seront supprimés.
+Pour cela, faite une érosion (<code class="docutils literal notranslate"><span class="pre">skimage.morphology.binary_erosion</span></code>) avec un élément structurant (<code class="docutils literal notranslate"><span class="pre">footprint</span></code>) carré de 3 pixels de côté.</p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -383,12 +403,21 @@ Des ressources complémentaires sont disponibles sur la page Moodle dédiée (ac
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tp4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Analyse de Fourier</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="tp1.html"
+       href="python.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Affichage d’une image</p>
+        <p class="prev-next-title">Utilisation de Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
