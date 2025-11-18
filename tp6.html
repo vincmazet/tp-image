@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Traitement d&#39;images</title>
+    <title>Détection de contours et de ligne &#8212; Traitement d&#39;images</title>
   
   
   
@@ -58,13 +58,14 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp6';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/_static/displaymarks.js"></script>
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Affichage d’une image" href="tp1.html" />
+    <link rel="next" title="Utilisation de Python" href="python.html" />
+    <link rel="prev" title="Segmentation d’image" href="tp5.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -127,8 +128,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -147,7 +146,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -172,20 +171,20 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Travaux pratiques</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tp1.html">Affichage d’une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp2.html">Analyse d’un histogramme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp3.html">Produit de convolution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp4.html">Analyse de Fourier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp5.html">Segmentation d’image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp6.html">Détection de contours et de ligne</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Détection de contours et de ligne</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
 <ul class="nav bd-sidenav">
@@ -246,7 +245,7 @@
       
       
       
-      <li><a href="_sources/index.ipynb" target="_blank"
+      <li><a href="_sources/tp6.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -317,7 +316,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -328,11 +329,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Détection de contours et de ligne</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-des-contours">Détection des contours</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-des-lignes">Détection des lignes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amelioration-de-la-methode">Amélioration de la méthode</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -342,16 +353,58 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>Ce manuel regroupe les TP de Traitement d’images du département I2S de <a class="reference external" href="https://www.telecom-physique.fr/">Télécom Physique Strasbourg</a>.
-Le manuel de cours est accessible sur <a class="reference external" href="https://vincmazet.github.io/bip/">Basics of Image Processing</a>.</p>
-<p>Les TP sont des exercices de programmation en Python (une aide est disponible dans la page <a class="reference internal" href="python.html#p-python"><span class="std std-ref">Utilisation de Python</span></a>).
-Des ressources complémentaires sont disponibles sur la page Moodle dédiée (accès réservé à mes étudiants).</p>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="detection-de-contours-et-de-ligne">
+<span id="p-tp6"></span><h1>Détection de contours et de ligne<a class="headerlink" href="#detection-de-contours-et-de-ligne" title="Permalink to this heading">#</a></h1>
+<p>L’objectif du TP est de détecter les lignes blanches de la route sur l’image <a class="reference download internal" download="" href="_downloads/9d6162ffe155fbfdfcfb31fe7b9b00cc/route1.jpg"><span class="xref download myst">route1.jpg</span></a>.
+La méthode se divise en deux étapes :</p>
+<ol class="arabic simple">
+<li><p>détection des contours avec la méthode de Canny,</p></li>
+<li><p>détection des lignes avec la transformée de Hough.</p></li>
+</ol>
+<section id="detection-des-contours">
+<h2>Détection des contours<a class="headerlink" href="#detection-des-contours" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Chargez l’image et convertissez-la en niveau de gris.</p></li>
+<li><p>La première étape du filtre de Canny est d’appliquer sur l’image un filtre gaussien : pour quelle raison ?</p></li>
+<li><p>Effectuez une détection de contours avec la méthode de Canny (<code class="docutils literal notranslate"><span class="pre">skimage.feature.canny</span></code>).
+Réglez l’écart-type du filtre gaussien pour obtenir le meilleur résultat ;
+les autres paramètres peuvent être laissés par défaut.</p></li>
+<li><p>Appliquez le masque <a class="reference download internal" download="" href="_downloads/0712b6d679e566d9d074bd8b302069fc/route-masque.png"><span class="xref download myst">route-masque.png</span></a> sur la détection de contours pour éliminer les contours qui sont clairement en dehors de la route.</p></li>
+</ul>
+</section>
+<section id="detection-des-lignes">
+<h2>Détection des lignes<a class="headerlink" href="#detection-des-lignes" title="Permalink to this heading">#</a></h2>
+<ul>
+<li><p>Affichez l’accumulateur de Hough (<code class="docutils literal notranslate"><span class="pre">skimage.transform.hough_line</span></code>) correspondant à l’image.
+La fonction retourne l’accumulateur lui-même et ses deux axes (angles et distances).
+Pour un affichage clair, appliquez un logarithme et définissez correctement les axes :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">accumulator</span><span class="p">,</span> <span class="n">angles</span><span class="p">,</span> <span class="n">distances</span> <span class="o">=</span> <span class="n">hough_line</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">accumulator</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+            <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">angles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">distances</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span> <span class="p">)</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
-</div>
+</li>
+<li><p>Utilisez <code class="docutils literal notranslate"><span class="pre">skimage.transform.hough_line_peaks</span></code> pour trouver les points de l’accumulateur les plus pertinents : ceux-ci correspondent aux lignes principales sur l’image des contours.
+Affichez ces points sur l’accumulateur.</p></li>
+<li><p>Enfin, tracez sur l’image originale les lignes correspondant aux points identifiés sur l’accumulateur.</p></li>
+</ul>
+</section>
+<section id="amelioration-de-la-methode">
+<h2>Amélioration de la méthode<a class="headerlink" href="#amelioration-de-la-methode" title="Permalink to this heading">#</a></h2>
+<p>Vérifiez que la méthode que vous avez mis en œuvre fonctionne également sur d’autres images :
+<a class="reference download internal" download="" href="_downloads/da66eaf4003f8dd6a627b66e7b9c9e2e/route2.jpg"><span class="xref download myst">route2.jpg</span></a> et
+<a class="reference download internal" download="" href="_downloads/89c32671de28168376fc4244eb81f8f7/route3.jpg"><span class="xref download myst">route3.jpg</span></a>.</p>
+<p>Diverses améliorations peuvent être effectuées pour améliorer la détection obtenue,
+en voici une liste non exhaustive :</p>
+<ul class="simple">
+<li><p>Régler les paramètres <code class="docutils literal notranslate"><span class="pre">low_threshold</span></code> et <code class="docutils literal notranslate"><span class="pre">high_threshold</span></code> du détecteur de Canny.</p></li>
+<li><p>Ne détecter que les lignes blanches et pas les autres lignes.</p></li>
+<li><p>Afficher uniquement les lignes dont le point dans l’accumulateur de Hough est d’intensité suffisamment importante.</p></li>
+<li><p>Ne pas afficher les lignes trop horizontales puisqu’elles ne peuvent manifestement pas être des lignes blanches.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -384,12 +437,21 @@ Des ressources complémentaires sont disponibles sur la page Moodle dédiée (ac
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="tp5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Segmentation d’image</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="tp1.html"
+       href="python.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Affichage d’une image</p>
+        <p class="prev-next-title">Utilisation de Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -399,6 +461,23 @@ Des ressources complémentaires sont disponibles sur la page Moodle dédiée (ac
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-des-contours">Détection des contours</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-des-lignes">Détection des lignes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#amelioration-de-la-methode">Amélioration de la méthode</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
