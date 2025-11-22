@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Analyse de Fourier &#8212; Traitement d&#39;images</title>
+    <title>Détection de motifs &#8212; Traitement d&#39;images</title>
   
   
   
@@ -58,16 +58,14 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tp4';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp7';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/_static/displaymarks.js"></script>
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Segmentation d’image" href="tp5.html" />
-    <link rel="prev" title="Produit de convolution" href="tp3.html" />
+    <link rel="next" title="Utilisation de Python" href="python.html" />
+    <link rel="prev" title="Détection de contours et de lignes" href="tp6.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,10 +182,10 @@
 <li class="toctree-l1"><a class="reference internal" href="tp1.html">Affichage d’une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp2.html">Analyse d’un histogramme</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp3.html">Produit de convolution</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyse de Fourier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp4.html">Analyse de Fourier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp5.html">Segmentation d’image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp6.html">Détection de contours et de lignes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp7.html">Détection de motifs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Détection de motifs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
 <ul class="nav bd-sidenav">
@@ -248,7 +246,7 @@
       
       
       
-      <li><a href="_sources/tp4.ipynb" target="_blank"
+      <li><a href="_sources/tp7.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -319,7 +317,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -330,11 +330,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Analyse de Fourier</h1>
+    <h1>Détection de motifs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrage-adapte">Filtrage adapté</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithme-sift">Algorithme SIFT</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -344,36 +353,38 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="analyse-de-fourier">
-<span id="p-tp4"></span><h1>Analyse de Fourier<a class="headerlink" href="#analyse-de-fourier" title="Permalink to this heading">#</a></h1>
-<p>Cet exercice a pour but de manipuler des images dans le domaine de Fourier.
-Pour cela, un filtre passe-bas et un filtre passe-haut seront appliqués sur une image à niveau de gris.</p>
-<ul>
-<li><p>Chargez et affichez l’image <a class="reference download internal" download="" href="_downloads/e9fdd2d0ebe2547b4885e50fb6a11805/smiley.png"><span class="xref download myst">smiley.png</span></a>.</p></li>
-<li><p>Calculez et affichez la transformée de Fourier de l’image avec <code class="docutils literal notranslate"><span class="pre">numpy.fft.fft2</span></code>.
-Affichez la transformée de Fourier en ramenant, par convention, les basses fréquences au centre de l’image avec <code class="docutils literal notranslate"><span class="pre">numpy.fft.fftshift</span></code>.
-Le module et la phase de la transformée de Fourier s’obtiennent avec <code class="docutils literal notranslate"><span class="pre">numpy.absolute</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy.angle</span></code>.
-Pour mieux observer le module, vous pouvez le représenter en échelle logarithmique (<code class="docutils literal notranslate"><span class="pre">numpy.log</span></code>).</p></li>
-<li><p>Créez un filtre passe-bas idéal en définissant sa PSF <span class="math notranslate nohighlight">\(h\)</span> directement dans le domaine de Fourier.</p>
-<ul>
-<li><p>Quelle taille doit avoir la transformée de Fourier de <span class="math notranslate nohighlight">\(h\)</span> ?</p></li>
-<li><p>Créez la transformée de Fourier de sorte à ce qu’elle soit égale à 1 dans les basses fréquences et 0 ailleurs. Vous pouvez vous inspirer du code suivant :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
-<span class="n">H</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</pre></div>
-</div>
-<p>où <code class="docutils literal notranslate"><span class="pre">M</span></code>, <code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code> et <code class="docutils literal notranslate"><span class="pre">b</span></code> sont des paramètres à régler.</p>
-</li>
-<li><p>Affichez le module et la phase du filtre passe-bas ainsi créé.</p></li>
-<li><p>Effectuez le filtrage dans le domaine de Fourier.</p></li>
-<li><p>Que constatez-vous sur l’image filtrée ?</p></li>
+  <section class="tex2jax_ignore mathjax_ignore" id="detection-de-motifs">
+<span id="p-tp7"></span><h1>Détection de motifs<a class="headerlink" href="#detection-de-motifs" title="Permalink to this heading">#</a></h1>
+<p>L’objectif du TP est de détecter et reconnaître les panneaux de limitation de vitesse sur des images issues de caméras montées sur des véhicules.
+Deux méthodes seront comparées : le filtre adapté et l’algorithme SIFT.</p>
+<section id="filtrage-adapte">
+<h2>Filtrage adapté<a class="headerlink" href="#filtrage-adapte" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Avant de traiter une véritable observation, commencez à mettre au point le filtre
+en cherchant le motif <a class="reference download internal" download="" href="_downloads/802b0d38141f4fb232feac0c6c99f9eb/P90.png"><span class="xref download myst">P90.png</span></a> sur <a class="reference download internal" download="" href="_downloads/a78ead195bd0fa668823ed649eb7f84f/panneaux.jpg"><span class="xref download myst">panneaux.jpg</span></a> avec la fonction <code class="docutils literal notranslate"><span class="pre">skimage.feature.match_template.</span></code>
+Pour observer le résultat, vous pouvez matérialiser l’emplacement du motif détecté sur l’observation en traçant un cadre sur l’image.
+Inspirez vous pour cela de l’<a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/features_detection/plot_template.html">exemple de la documentation de scikit-image</a>.</p></li>
+<li><p>Appliquez le filtre adapté sur l’image réelle <a class="reference download internal" download="" href="_downloads/9d6162ffe155fbfdfcfb31fe7b9b00cc/route1.jpg"><span class="xref download myst">route1.jpg</span></a>, toujours avec le motif <a class="reference download internal" download="" href="_downloads/802b0d38141f4fb232feac0c6c99f9eb/P90.png"><span class="xref download myst">P90.png</span></a>.</p></li>
+<li><p>Appliquez le filtre adapté sur l’image réelle <a class="reference download internal" download="" href="_downloads/b27d5c3e136d7515e14103ccd7719fff/route6.jpg"><span class="xref download myst">route6.jpg</span></a> avec le motif <a class="reference download internal" download="" href="_downloads/b98b8827db95ead555743d2460b2ee44/P70.png"><span class="xref download myst">P70.png</span></a>.
+Que se passe-t-il ?</p></li>
+<li><p>Améliorez la méthode pour qu’elle fonctionne correctement.</p></li>
+<li><p>Mesurez le temps de calcul de la méthode (par exemple avec <a class="reference external" href="https://stackoverflow.com/questions/1557571/how-do-i-get-time-of-a-python-programs-execution">la méthode décrite ici</a>).
+Cette mesure sera à comparer le temps de calcul de l’algorithme SIFT.</p></li>
+<li><p>On souhaite enfin que la méthode puisse non seulement détecter mais aussi reconnaître le panneau de limitation de vitesse.
+Vous avez pour cela à votre disposition les panneaux
+<a class="reference download internal" download="" href="_downloads/ff21596bfd8bff90459561ae333ab39d/P50.png"><span class="xref download myst">P50.png</span></a>, <a class="reference download internal" download="" href="_downloads/b98b8827db95ead555743d2460b2ee44/P70.png"><span class="xref download myst">P70.png</span></a>, <a class="reference download internal" download="" href="_downloads/802b0d38141f4fb232feac0c6c99f9eb/P90.png"><span class="xref download myst">P90.png</span></a>, <a class="reference download internal" download="" href="_downloads/eab716338e98b0fc415491987292a735/P110.png"><span class="xref download myst">P110.png</span></a> et <a class="reference download internal" download="" href="_downloads/37f6122f5319edfd695bddd4d198abe6/P130.png"><span class="xref download myst">P130.png</span></a>.
+Modifiez la méthode pour qu’elle puisse détecter et reonnaître la limitation appliquée.</p></li>
 </ul>
-</li>
-<li><p>Même question avec un filtre passe-haut.</p></li>
-<li><p>Appliquez les filtres utilisés dans l’exercice précédent sur l’image.
-Comme les PSF de ces filtres sont définies dans le domaine spatial,
-alors il est plus direct de calculer des convolutions dans le domaine spatial plutôt que des multiplications dans le domaine de Fourier.</p></li>
+</section>
+<section id="algorithme-sift">
+<h2>Algorithme SIFT<a class="headerlink" href="#algorithme-sift" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>En partant de l’exemple <a class="reference external" href="https://scikit-image.org/docs/stable/auto_examples/features_detection/plot_sift.html">SIFT feature detector and descriptor extractor</a>,
+implémentez une méthode qui extrait les caractéristiques sur une observation et un panneau, puis affiche les correspondances.</p></li>
+<li><p>Mesurez le temps de calcul de la méthode et comparez-le avec celui du filtre adapté.</p></li>
+<li><p>Faites en sorte que la méthode puisse également reconnaître la limitation de vitesse parmi les 5 motifs proposés.</p></li>
 </ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -407,20 +418,20 @@ alors il est plus direct de calculer des convolutions dans le domaine spatial pl
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="tp3.html"
+       href="tp6.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Produit de convolution</p>
+        <p class="prev-next-title">Détection de contours et de lignes</p>
       </div>
     </a>
     <a class="right-next"
-       href="tp5.html"
+       href="python.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Segmentation d’image</p>
+        <p class="prev-next-title">Utilisation de Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -430,6 +441,22 @@ alors il est plus direct de calculer des convolutions dans le domaine spatial pl
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrage-adapte">Filtrage adapté</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithme-sift">Algorithme SIFT</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
