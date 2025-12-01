@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Produit de convolution &#8212; Traitement d&#39;images</title>
+    <title>Interpolation et recalage &#8212; Traitement d&#39;images</title>
   
   
   
@@ -60,14 +60,14 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tp3';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tp8';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/_static/displaymarks.js"></script>
     <script src="_static/.ipynb_checkpoints/displaymarks-checkpoint.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analyse de Fourier" href="tp4.html" />
-    <link rel="prev" title="Analyse d’un histogramme" href="tp2.html" />
+    <link rel="next" title="Utilisation de Python" href="python.html" />
+    <link rel="prev" title="Détection de motifs" href="tp7.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,12 +183,12 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tp1.html">Affichage d’une image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp2.html">Analyse d’un histogramme</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Produit de convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tp3.html">Produit de convolution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp4.html">Analyse de Fourier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp5.html">Segmentation d’image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp6.html">Détection de contours et de lignes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tp7.html">Détection de motifs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tp8.html">Interpolation et recalage</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Interpolation et recalage</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Annexes</span></p>
 <ul class="nav bd-sidenav">
@@ -249,7 +249,7 @@
       
       
       
-      <li><a href="_sources/tp3.ipynb" target="_blank"
+      <li><a href="_sources/tp8.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -320,7 +320,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -331,11 +333,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Produit de convolution</h1>
+    <h1>Interpolation et recalage</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparaison-de-plusieurs-types-d-interpolation">Comparaison de plusieurs types d’interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparaison-de-plusieurs-transformations-geometriques">Comparaison de plusieurs transformations géométriques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recalage">Recalage</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -345,34 +357,51 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="produit-de-convolution">
-<span id="p-tp3"></span><h1>Produit de convolution<a class="headerlink" href="#produit-de-convolution" title="Permalink to this heading">#</a></h1>
-<p>Dans cet exercice, le produit de convolution est utilisé sur des images très petites, afin de pouvoir vérifier les résultats par le calcul.
-On considère l’image 2 × 6 :</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-g =
-\begin{pmatrix}
-  1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0
-\end{pmatrix}
-\end{split}\]</div>
-<p>et les trois PSF ci-dessous :</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-h_1 = \begin{pmatrix} 1 &amp; -1 \end{pmatrix}, \qquad
-h_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}, \qquad
-h_3 = \begin{pmatrix} 1 &amp; 2 &amp; 1 \end{pmatrix}.
-\end{split}\]</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="interpolation-et-recalage">
+<span id="p-tp8"></span><h1>Interpolation et recalage<a class="headerlink" href="#interpolation-et-recalage" title="Permalink to this heading">#</a></h1>
+<section id="comparaison-de-plusieurs-types-d-interpolation">
+<h2>Comparaison de plusieurs types d’interpolation<a class="headerlink" href="#comparaison-de-plusieurs-types-d-interpolation" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Comparez le résultat produit par une interpolation d’ordre 0 (plus proche voisin), d’ordre 1 (bilinéaire) et d’ordre 3 (bicubique)
+sur l’image <a class="reference download internal" download="" href="_downloads/e4578ab9f1639aa80f562dc98a2bcba2/echiquier.png"><span class="xref download myst">echiquier.png</span></a>.
+Pour cela, effectuer 9 rotations successives de 10° chacune avec <code class="docutils literal notranslate"><span class="pre">skimage.transform.rotate</span></code>
+en prenant soin de transformer l’image en float avec <code class="docutils literal notranslate"><span class="pre">skimage.util.img_as_float</span></code>.</p></li>
+</ul>
+</section>
+<section id="comparaison-de-plusieurs-transformations-geometriques">
+<h2>Comparaison de plusieurs transformations géométriques<a class="headerlink" href="#comparaison-de-plusieurs-transformations-geometriques" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Sur l’image <a class="reference download internal" download="" href="_downloads/9da2b4e61e885f7bdabc29f3c6616548/schtroumpf.jpg"><span class="xref download myst">schtroumpf.jpg</span></a>, appliquez les transformations suivantes avec <code class="docutils literal notranslate"><span class="pre">skimage.transform.warp</span></code> :</p>
 <ul>
-<li><p>Calculez le résultat des convolutions de l’image <span class="math notranslate nohighlight">\(g\)</span> avec chacune des trois PSF.</p></li>
-<li><p>Vérifiez le résultat avec Python.
-L’image <span class="math notranslate nohighlight">\(g\)</span> peut être définie avec l’instruction :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ligne</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ligne</span><span class="p">,</span> <span class="n">ligne</span><span class="p">])</span>
-</pre></div>
-</div>
+<li><p>une translation de 100 pixels vers la droite et 50 pixels vers le bas,</p></li>
+<li><p>une rotation de <span class="math notranslate nohighlight">\(\pi/4\)</span> radians,</p></li>
+<li><p>la combinaison des deux transformations précédentes,</p></li>
+<li><p>une réduction de la taille de l’image d’un facteur 0,7,</p></li>
+<li><p>un cisaillement d’angle <span class="math notranslate nohighlight">\(\pi/6\)</span>,</p></li>
+<li><p>une homographie dont vous choisirez les paramètres.</p></li>
+</ul>
 </li>
 </ul>
+<p>La matrice de transformation peut être définie simplement avec les fonctions suivantes :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">skimage.transform.EuclideanTransform</span></code> : transformation rigide ou euclidienne (3 paramètres),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skimage.transform.AffineTransform</span></code> : transformation affine (6 paramètres),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skimage.transform.ProjectiveTransform</span></code> : homographie (9 paramètres).</p></li>
+</ul>
+</section>
+<section id="recalage">
+<h2>Recalage<a class="headerlink" href="#recalage" title="Permalink to this heading">#</a></h2>
+<p>L’objectif est d’effectuer le recalage de l’image <a class="reference download internal" download="" href="_downloads/7b0830ac4d8f3f93039b3810aeaeea06/irm2.png"><span class="xref download myst">irm2.png</span></a> sur l’image <a class="reference download internal" download="" href="_downloads/5fb40a2981df8fc7a1644a48e131c081/irm1.png"><span class="xref download myst">irm1.png</span></a>.
+On sait que l’image a subi une rotation autour du centre de l’image, en plus d’autre dégradations.
+Le critère de similarité est l’erreur quadratique moyenne (EQM) entre les images <span class="math notranslate nohighlight">\(f_1\)</span> et <span class="math notranslate nohighlight">\(f_2\)</span>, toutes deux de taille <span class="math notranslate nohighlight">\(M \times N\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{EQM} = \frac{1}{MN} \sum_{m,n} \left( f_1(m,n)-f_2(m,n) \right)^2. 
+\]</div>
+<ul class="simple">
+<li><p>Implémentez l’optimisation de l’EQM, avec une simple recherche exhaustive, pour déterminer le meilleur angle de rotation pour effectuer le recalage.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -406,20 +435,20 @@ L’image <span class="math notranslate nohighlight">\(g\)</span> peut être dé
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="tp2.html"
+       href="tp7.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Analyse d’un histogramme</p>
+        <p class="prev-next-title">Détection de motifs</p>
       </div>
     </a>
     <a class="right-next"
-       href="tp4.html"
+       href="python.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Analyse de Fourier</p>
+        <p class="prev-next-title">Utilisation de Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -429,6 +458,23 @@ L’image <span class="math notranslate nohighlight">\(g\)</span> peut être dé
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparaison-de-plusieurs-types-d-interpolation">Comparaison de plusieurs types d’interpolation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparaison-de-plusieurs-transformations-geometriques">Comparaison de plusieurs transformations géométriques</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recalage">Recalage</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
